@@ -18,15 +18,16 @@ questions = [
 ]
 '''
 
+
 def home(request):
     req = 'http://jservice.io/api/random?count=12'
     response = requests.get(req)
     trivia_set = response.json()
     content = []
     for trivia in trivia_set:
-        dict = { 'id': trivia['id'], 'question' : trivia['question'], 'answer' : trivia['answer'], 'category' : trivia['category']['title'] }
+        dict = { 'id': trivia['id'], 'question' : trivia['question'], 'answer' : trivia['answer'], 'category' : trivia['category']['title']}
         content.append(dict)
-    return render(request, 'trivia/home.html', {'trivia' : content})
+    return render(request, 'trivia/home.html', {'trivia':content})
 
 
 def about(request):
