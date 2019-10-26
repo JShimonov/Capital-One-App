@@ -1,2 +1,33 @@
+{% extends "trivia/base.html" %}
+
+{% block content %}
+
+    <!-- Main Content -->
+    <!-- Cards -->
+    <div class="card-columns mb-3 text-center">
+
+        {% for triv in trivia %}
+            <div class="card border-dark mb-3">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Trivia #{{ triv.id }}</h4>
+              </div>
+              <div class="card-body text-dark">
+                <h1 class="card-title pricing-card-title">{{ triv.question }}</h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li></li>
+                  <li>{{ triv.answer }}</li>
+                  <li></li>
+                  <li></li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+
+{% endblock content %}
+
 <h1 style="text-align:center">this is a list of the categories</h1>
 <a href="{% url 'trivia-home' %}">Return to Home Page</a>

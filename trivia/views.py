@@ -22,6 +22,10 @@ def categories(request):
         content.append(dict)
     return render(request, 'trivia/categories.html', {'categories':content})
 
+def results(request):
+    return render(request, 'trivia/results.html')
+
+
 
 def about(request):
     return render(request, 'trivia/about.html')
