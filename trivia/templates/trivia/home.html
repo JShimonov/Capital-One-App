@@ -2,35 +2,29 @@
 
 {% block content %}
 
-    <!-- Intro Heading -->
-    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">Welcome to Trivia</h1>
-        <p class="lead">Play our trivia game: search by category or get a random trivia</p>
-    </div>
 
-    <!-- Main Content -->
-    <!-- Cards -->
-    <div class="card-columns mb-3 text-center">
+      <div class="album py-5 bg-dark">
+        <div class="container">
 
-        {% for triv in trivia %}
-            <div class="card border-dark mb-3">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Trivia #{{ triv.id }}</h4>
+
+
+            {% for triv in trivia %}
+
+              <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                  <p class="card-text" style="text-align:center">ID: {{ triv.id }}</p>
+                  <p class="card-text" style="text-align:center">Trivia Question: {{ triv.question }}</p>
+
+                  <p class="card-text" style="text-align:center">Show Answer</p>
+                  <p class="card-text" style="text-align:center">Answer: {{ triv.answer }}</p>
+                </div>
               </div>
-              <div class="card-body text-dark">
-                <h1 class="card-title pricing-card-title">{{ triv.question }}</h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li></li>
-                  <li>{{ triv.answer }}</li>
-                  <li></li>
-                  <li></li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
-              </div>
-            </div>
 
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+      </div>
+
+
 
 
 {% endblock content %}

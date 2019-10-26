@@ -37,13 +37,13 @@
     </nav>
   </header>
 
-  <main role="main">
+  <main role="main" style="background-color:skyblue">
 
-    <section class="jumbotron text-center">
+    <section class="jumbotron text-center" style="background-color:skyblue">
       <div class="container">
         <h1 class="jumbotron-heading">Welcome to Jeopardy</h1>
         <p class="lead text-muted">Find all the trivia questions that you are looking for all in one spot</p>
-        <input type="text" placeholder="Search Categories" style="width:100%; max-width:600px;">
+        <input type="text" placeholder="Search Categories" style="width:100%; max-width:600px; outline:auto; outline-width:2px">
 
         <p>
           <a href="#" class="btn btn-primary my-2">Search</a>
@@ -52,39 +52,12 @@
       </div>
     </section>
 
-    <div class="album py-5 bg-light">
-      <div class="container">
-
-        <div class="row">
-
-          {% for question in questions %}
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <div class="card-body">
-                <p class="card-text" style="text-align:center">{{ question.title }}</p>
-                <p class="card-text" style="text-align:center">{{ question.id }}</p>
-
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Show Questions</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Show Clues</button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-
     {% block content %}{% endblock %}
 
   </main>
 
   <footer class="text-muted">
-    <div class="containe text-center">
+    <div class="container text-center">
       <p>© Joseph Shimonov {% now "Y" %}</p>
       </div>
   </footer>
