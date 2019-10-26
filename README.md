@@ -1,6 +1,5 @@
 # Capital One Web App Challenge
 
-# Capital One Challenge
 To complete the challenge, build a web application that:
 1. Has a search function that displays in an intuitive, responsive, mobile friendly, easy to navigate interface
 2. Gives users the ability to refine search results by:
