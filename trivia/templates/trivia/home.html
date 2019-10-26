@@ -3,12 +3,12 @@
 {% block content %}
 
 
-      <div class="album py-5 bg-dark" style="border-radius:40px">
+      <div class="album py-5 bg-dark" style="border-radius:40px 40px 0px 0px">
         <div class="container">
 
             {% for triv in trivia %}
 
-              <div class="card mb-3 shadow-sm" style="border-radius:25px">
+              <div class="card mb-3 shadow-sm" style="border-radius:15px 60px">
                 <div class="card-body">
                   <p class="card-text" style="text-align:center">ID: {{ triv.id }}</p>
                   <p class="card-text" style="text-align:center">Trivia Question: {{ triv.question }}</p>
