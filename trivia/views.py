@@ -25,7 +25,8 @@ def categories(request):
 def results(request):
     return render(request, 'trivia/results.html')
 
-
+def listcategory(request):
+    return render(request, 'trivia/listcategory.html')
 
 def about(request):
     return render(request, 'trivia/about.html')

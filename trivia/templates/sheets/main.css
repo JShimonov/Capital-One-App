@@ -1,3 +1,6 @@
-.card-text {
-  border-radius: 25px;
+.jumbotron text-center {
+  background-color: skyblue;
+  margin-bottom: 0px;
+  padding-bottom: 48px;
+  padding-top: 48px;
 }
