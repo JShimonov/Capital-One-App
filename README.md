@@ -1,4 +1,4 @@
-# Capital-One-App
+# Capital One Web App Challenge
 
 # Capital One Challenge
 To complete the challenge, build a web application that:
