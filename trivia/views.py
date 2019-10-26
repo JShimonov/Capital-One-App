@@ -13,7 +13,7 @@ def home(request):
     return render(request, 'trivia/home.html', {'trivia':content})
 
 def categories(request):
-    req = 'http://jservice.io/api/categories?100'
+    req = 'http://jservice.io/api/categories?count=100'
     response = requests.get(req)
     category_set = response.json()
     content = []

@@ -1,33 +1,27 @@
 {% extends "trivia/base.html" %}
 
 {% block content %}
+  <h1 style="text-align:center">Categories Page</h1>
 
-    <!-- Main Content -->
-    <!-- Cards -->
-    <div class="card-columns mb-3 text-center">
+  <div class="album py-5 bg-dark" style="border-radius:40px">
+    <div class="container">
+        <!-- categories: id, title, clues_count-->
+        {% for categ in categories %}
 
-        {% for triv in trivia %}
-            <div class="card border-dark mb-3">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Trivia #{{ triv.id }}</h4>
-              </div>
-              <div class="card-body text-dark">
-                <h1 class="card-title pricing-card-title">{{ triv.question }}</h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li></li>
-                  <li>{{ triv.answer }}</li>
-                  <li></li>
-                  <li></li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
-              </div>
+          <div class="card mb-3 shadow-sm" style="border-radius:20px">
+            <div class="card-body">
+              <p class="card-text" style="text-align:center">ID: {{ categ.id }}</p>
+              <p class="card-text" style="text-align:center">Category: {{ categ.title }}</p>
+
+              <p class="card-text" style="text-align:center">Clues Count: {{ categ.clues_count }}</p>
             </div>
+          </div>
 
         {% endfor %}
     </div>
+  </div>
 
 
 {% endblock content %}
 
-<h1 style="text-align:center">this is a list of the categories</h1>
 <a href="{% url 'trivia-home' %}">Return to Home Page</a>
