@@ -2,23 +2,26 @@
 
 {% block content %}
 
-  <h1 style="text-align:center">Categories Page</h1>
 
   <div class="album py-5 bg-dark" style="border-radius:40px 40px 0px 0px">
     <div class="container">
+      <div class="row">
+
         <!-- categories: id, title, clues_count-->
         {% for categ in categories %}
-
-          <div class="card mb-3 shadow-sm" style="border-radius:20px; text-align:center;">
+          <div class="col-md-4 py-4">
+          <div class="card mb-3 shadow-sm" style="border-radius:15px 60px; text-align:center;">
             <div class="card-body">
               <p class="card-text" style="margin-bottom:10px;">ID: {{ categ.id }}</p>
-                <a href="{% url 'trivia-listcategory' %}" class="btn" style="outline: auto; outline-width: 1px;">{{ categ.title }}</a>
+              <a href="/listcategory/{{categ.id}}" class="btn" style="outline: auto; outline-width: 1px;">{{ categ.title }}</a>
 
               <p class="card-text" style="margin-top:10px;">Clues Count: {{ categ.clues_count }}</p>
             </div>
           </div>
-
+          </div>
         {% endfor %}
+
+      </div>
     </div>
   </div>
 

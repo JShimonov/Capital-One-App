@@ -13,7 +13,7 @@ def home(request):
     return render(request, 'trivia/home.html', {'trivia':content})
 
 def categories(request):
-    req = 'http://jservice.io/api/categories?count=100'
+    req = 'http://jservice.io/api/categories?count=99'
     response = requests.get(req)
     category_set = response.json()
     content = []
@@ -22,11 +22,21 @@ def categories(request):
         content.append(dict)
     return render(request, 'trivia/categories.html', {'categories':content})
 
+def listcategory(request, id='11510'):
+    req = 'http://jservice.io/api/category?id='+id
+    response = requests.get(req)
+    category_set = response.json()
+    clues_set = category_set['clues']
+    content = []
+    for clues in clues_set:
+        dict = {'answer':clues['answer'], 'question':clues['question']}
+        content.append(dict)
+    return render(request, 'trivia/listcategory.html', {'clues':content})
+
 def results(request):
     return render(request, 'trivia/results.html')
 
-def listcategory(request):
-    return render(request, 'trivia/listcategory.html')
+
 
 def about(request):
     return render(request, 'trivia/about.html')
