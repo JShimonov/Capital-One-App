@@ -8,6 +8,6 @@ To complete the challenge, build a web application that:
    - Level of difficulty of the question
    - Any other smart searching criteria you see fit
 
-Optional: You may want to include these bonus fearutes:
+Optional: You may want to include these bonus features:
   - Game board simulation with the categories and questions in the proper place (as it would be organized in the game with easier questions on top
   - Marking or saving questions into a "favorites" collection
