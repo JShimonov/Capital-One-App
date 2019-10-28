@@ -35,16 +35,26 @@
     </nav>
   </header>
 
+<!-- main template code -->
 <div class="album py-5 bg-dark">
   <div class="container">
+    <div class="row">
       <!-- categories: id, title, clues_count-->
       {% for cl in clues %}
-        <div class="card mb-3 shadow-sm" style="border-radius:20px; text-align:center;">
-          <div class="card-body">
-            <p class="card-text" style="margin-bottom:10px;">Question: {{ cl.question }}</p>
-            <p class="card-text" style="margin-top:10px;">Answer: {{ cl.answer }}</p>
+        <div class="col-md-4 py-4">
+          <div class="card mb-3 shadow-sm" style="border-radius:20px; text-align:center;">
+            <div class="card-body">
+              <p class="card-text" style="margin-bottom:10px;">Question: {{ cl.question }}</p>
+              <p class="card-text" style="margin-top:10px;">Answer: {{ cl.answer }}</p>
+            </div>
           </div>
         </div>
       {% endfor %}
+    </div>
   </div>
 </div>
+<footer class="text-muted">
+  <div class="container text-center">
+    <p>© Joseph Shimonov {% now "Y" %}</p>
+    </div>
+</footer>
