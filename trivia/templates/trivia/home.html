@@ -8,13 +8,24 @@
 
             {% for triv in trivia %}
 
-              <div class="card mb-3 shadow-sm" style="border-radius:15px 60px">
+              <div class="card mb-3 shadow-sm" style="border-radius:15px 60px; text-align:center;">
                 <div class="card-body">
-                  <p class="card-text" style="text-align:center">ID: {{ triv.id }}</p>
-                  <p class="card-text" style="text-align:center">Trivia Question: {{ triv.question }}</p>
+                  <p class="card-text">ID: {{ triv.id }}</p>
+                  <p class="card-text">Trivia Question: {{ triv.question }}</p>
 
-                  <p class="show-text" style="text-align:center">Show Answer</p>
-                  <p class="card-text" style="text-align:center">Answer: {{ triv.answer }}</p>
+                  <button type="button" onclick="myFunction()" style="outline: auto; outline-width: 1px;">Show Answer</button>
+                  <div id="answer-text" style="display:none">Answer: {{ triv.answer }}</div>
+
+                  <script>
+                  function myFunction() {
+                    var x = document.getElementById("answer-text");
+                    if (x.style.display === "none") {
+                      x.style.display = "block";
+                    } else {
+                      x.style.display = "none";
+                    }
+                  }
+                  </script>
                 </div>
               </div>
 
