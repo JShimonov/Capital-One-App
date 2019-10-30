@@ -11,7 +11,7 @@ def home(request):
     trivia_set = response.json()
     content = []
     for trivia in trivia_set:
-        dict = {'id': trivia['id'], 'question' : trivia['question'], 'answer' : trivia['answer'], 'category' : trivia['category']['title']}
+        dict = {'id': trivia['id'], 'question' : trivia['question'], 'answer' : trivia['answer'], 'category' : trivia['category']['title'], 'value' : trivia['value'], 'airdate' : trivia['airdate'][:10], 'category_id' : trivia['category_id']}
         content.append(dict)
     return render(request, 'trivia/home.html', {'trivia':content})
 
@@ -115,6 +115,12 @@ def results_trivia(request, cat, diff):
         content.append(dict)
 
     return render(request, {'trivia':content, 'title':cat, 'success':success, 'titleBar':cat})
+
+def airdatetrivia(request):
+    return render(request)
+
+def difficultytrivia(request):
+    return render(request)
 
 def about(request):
     return render(request, 'trivia/about.html')

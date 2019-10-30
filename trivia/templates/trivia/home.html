@@ -5,31 +5,67 @@
 
       <div class="album py-5 bg-dark" style="border-radius:40px 40px 0px 0px">
         <div class="container">
-
+          <div class="row">
             {% for triv in trivia %}
+              <div class="col-md-4 py-4">
+                <div class="card mb-3 shadow-sm" style="border-radius:15px 60px; text-align:center;">
+                  <div class="card-body" style="height:500px; max-height:600px;">
 
-              <div class="card mb-3 shadow-sm" style="border-radius:15px 60px; text-align:center;">
-                <div class="card-body">
-                  <p class="card-text">ID: {{ triv.id }}</p>
-                  <p class="card-text">Trivia Question: {{ triv.question }}</p>
+                    <!-- Show the ID of the question -->
+                    <div>
+                      <strong>Trivia ID</strong>
+                      <br>
+                      <a>{{ triv.id }}</a>
+                    </div>
 
-                  <button type="button" onclick="myFunction()" style="outline: auto; outline-width: 1px;">Show Answer</button>
-                  <div id="answer-text" style="display:none">Answer: {{ triv.answer }}</div>
+                    <br>
 
-                  <script>
-                  function myFunction() {
-                    var x = document.getElementById("answer-text");
-                    if (x.style.display === "none") {
-                      x.style.display = "block";
-                    } else {
-                      x.style.display = "none";
-                    }
-                  }
-                  </script>
+                    <!-- Show the Category of the question -->
+                    <div>
+                      <strong>Category</strong>
+                      <br>
+                      <a href="/listcategory/{{ triv.category_id }}">{{ triv.category }}</a>
+                    </div>
+
+                    <br>
+
+                    <!-- Show the Difficulty of the question -->
+                    <div>
+                      <strong>Difficulty</strong>
+                      <br>
+                      <a href="/difficulty/{{ triv.value }}">{{ triv.value }}</a>
+                    </div>
+
+                    <br>
+
+                    <!-- Show the Airdate of the question -->
+                    <p class="airdate-text">Airdate: {{ triv.airdate }}</p>
+
+                    <!-- Show the button to ShowAnswer -->
+                    <!-- Show the Answer to the question -->
+
+
+                    <p class="card-text">Trivia Question: {{ triv.question }}</p>
+
+                    <button type="button" onclick="myFunction()" style="outline: auto; outline-width: 1px;">Show Answer</button>
+                    <div id="{{forloop.counter}}" style="display:none">Answer: {{ triv.answer }}</div>
+                    <script>
+                      function myFunction() {
+                        var x = document.getElementById("{{forloop.counter}}");
+                        if (x.style.display === "none") {
+                          x.style.display = "block";
+                          console.log(x);
+                        } else {
+                          x.style.display = "none";
+                          console.log(x);
+                        }
+                      }
+                    </script>
+                  </div>
                 </div>
               </div>
-
             {% endfor %}
+          </div>
         </div>
       </div>
 
