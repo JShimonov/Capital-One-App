@@ -60,10 +60,23 @@
         <!-- Search function(s) put here -->
         <form method="post">
           {% csrf_token %}
-          {{ Form.as_p }}
-         <br>
-         <button class="btn btn-outline-primary" type="submit">Submit</button>
+          <input type="text" placeholder="Search Categories" style="width:100%; max-width:600px;">
+          <br>
+          <br>
+          <label for="start">Start date:</label>
+          <input type="date" id="start" name="airdate-start" value="2000-07-22" min="1965-01-01" max="2012-12-31">
+          <br>
+          <label for="end">End date:</label>
+          <input type="date" id="end" name="airdate-end" value="2010-08-22" min="1965-01-07" max="2012-12-31">
+          <br>
+          <select name="Difficulty" style="text-align:center">
+            <option value="Easy">Easy</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Difficult">Difficult</option>
+          </select>
+          <br> <br>
 
+         <button class="btn btn-outline-primary" type="submit">Submit</button>
         </form>
 
       </div>

@@ -57,7 +57,7 @@ def listcategory(request, id='11510'):
     clues_set = category_set['clues']
     content = []
     for clues in clues_set:
-        dict = {'answer':clues['answer'], 'question':clues['question']}
+        dict = {'id':clues['id'], 'category':category_set['title'], 'value':clues['value'], 'airdate':clues['airdate'][:10],'answer':clues['answer'], 'question':clues['question']}
         content.append(dict)
     return render(request, 'trivia/listcategory.html', {'clues':content})
 
@@ -72,7 +72,7 @@ def results_trivia(request, cat, diff, date):
         response = requests.get(req)
         category_set = response.json()
         # base: overflow
-        if offset >= 10000:
+        if offset >= 1000:
             break
         # now find the correct set of Categories
         for category in category_set:
