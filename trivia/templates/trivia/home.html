@@ -9,7 +9,7 @@
             {% for triv in trivia %}
               <div class="col-md-4 py-4">
                 <div class="card mb-3 shadow-sm" style="border-radius:15px 60px; text-align:center;">
-                  <div class="card-body" style="height:500px; max-height:600px;">
+                  <div class="card-body">
 
                     <!-- Show the ID of the question -->
                     <div>
@@ -39,28 +39,25 @@
                     <br>
 
                     <!-- Show the Airdate of the question -->
-                    <p class="airdate-text">Airdate: {{ triv.airdate }}</p>
+                    <div>
+                      <strong>Airdate</strong>
+                      <br>
+                      <a href="/airdate/{{ triv.airdate }}">{{ triv.airdate }}</a>
+                    </div>
+
+                    <br>
 
                     <!-- Show the button to ShowAnswer -->
                     <!-- Show the Answer to the question -->
-
-
-                    <p class="card-text">Trivia Question: {{ triv.question }}</p>
-
-                    <button type="button" onclick="myFunction()" style="outline: auto; outline-width: 1px;">Show Answer</button>
-                    <div id="{{forloop.counter}}" style="display:none">Answer: {{ triv.answer }}</div>
-                    <script>
-                      function myFunction() {
-                        var x = document.getElementById("{{forloop.counter}}");
-                        if (x.style.display === "none") {
-                          x.style.display = "block";
-                          console.log(x);
-                        } else {
-                          x.style.display = "none";
-                          console.log(x);
-                        }
-                      }
-                    </script>
+                    <div>
+                      <strong>Question</strong>
+                      <br>
+                      <a>{{ triv.question }}</a>
+                      <br>
+                      <button type="button" onclick="showAnswer({{forloop.counter}})" style="outline:auto; outline-width:1px;">Show Answer</button>
+                      <br>
+                      <div id="{{forloop.counter}}" style="display:none">Answer: {{ triv.answer }}</div>
+                    </div>
                   </div>
                 </div>
               </div>

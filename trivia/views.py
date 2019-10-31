@@ -1,12 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from trivia.searchtags import searchform
+import datetime
 
 import random
 import requests
 
 def home(request):
-    req = 'http://jservice.io/api/random?count=8'
+    if request.method == 'POST':
+        form = searchform(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            # inputting values from the data
+            category = data['category'] if data['category']!='' else None
+            diff = data['difficulty'] if data['difficulty']!= "" else None
+            from_date = data['from_date'] if data['from_date'] != None else datetime.date(1966, 1, 1)
+            to_date = data['to_date'] if data['to_date'] != None else datetime.date(2011, 12, 12)
+
+            return results_trivia(request, category, diff, (from_date, to_date))
+
+    req = 'http://jservice.io/api/random?count=15'
     response = requests.get(req)
     trivia_set = response.json()
     content = []
@@ -16,6 +29,18 @@ def home(request):
     return render(request, 'trivia/home.html', {'trivia':content})
 
 def categories(request):
+    if request.method == 'POST':
+        form = searchform(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            # inputting values from the data
+            category = data['category'] if data['category']!='' else None
+            diff = data['difficulty'] if data['difficulty']!= "" else None
+            from_date = data['from_date'] if data['from_date'] != None else datetime.date(1966, 1, 1)
+            to_date = data['to_date'] if data['to_date'] != None else datetime.date(2011, 12, 12)
+
+            return results_trivia(request, category, diff, (from_date, to_date))
+
     req = 'http://jservice.io/api/categories?count=99'
     response = requests.get(req)
     category_set = response.json()
@@ -36,33 +61,9 @@ def listcategory(request, id='11510'):
         content.append(dict)
     return render(request, 'trivia/listcategory.html', {'clues':content})
 
-def results(request):
-    # time to work on the search box
-    if request.method == 'POST':
-        form = searchform(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            # inputting values from the data
-            category = data['category'] if data['category']!='' else None
-            diff = data['difficulty'] if data['difficulty']!= "" else None
-
-            return results_trivia(request, category, difficulty)
-
-    form = searchform()
-    content = []
-    offset = random.randint(0, 2000)
-    req = "http://jservice.io/api/categories?count=100" + "&offset=" + str(offset)
-    response = requests.get(req)
-    category_set = response.json()
-    for category in category_set:
-        dict = {'title':category['title'], 'id':category['id']}
-        content.append(dict)
-    return render(request, 'trivia/results.html', {'categories':content, 'form':form, 'title':"Search"})
-
-def results_trivia(request, cat, diff):
+def results_trivia(request, cat, diff, date):
     content_set = []
     clues_set = []
-    success = False
 
     offset = 0
     categories = []
@@ -83,7 +84,7 @@ def results_trivia(request, cat, diff):
             elif (cat == None) or (cat != "" and cat in category['title']):
                 clue_req = "http://jservice.io/api/clues?category=" + str(category['id'])
                 clue_response = requests.get(clue_req)
-                clue_question_set = clue_question.json()
+                clue_question_set = clue_response.json()
 
                 for clue in clue_question_set:
                     value = clue['value'] # this determines the difficulty of the question
@@ -93,7 +94,7 @@ def results_trivia(request, cat, diff):
                         continue
 
                     # Max difficulty value == 1000
-                    dict = {'easy': 0 < value <= 300, 'intermediate': 300 < value <= 700, 'difficult': 700 < value <= 1000}
+                    dict = {'easy': 0 < value <= 300, 'intermediate': 300 < value <= 700, 'difficult': 700 < value <= 1000, None:True}
                     difficulty = dict[diff]
 
                     # filter date here
@@ -104,23 +105,40 @@ def results_trivia(request, cat, diff):
 
         offset += 1000
 
-    if len(clues_set) != 0:
-        success = True
-
-    f = open("all_categories.txt", "w")
-    f.write(str(categories))
+    # f = open("all_categories.txt", "w")
+    # f.write(str(categories))
 
     for clue in clues_set:
         dict = {'id': clue['id'], 'question':clue['question'], 'answer':clue['answer'], 'category':clue['category']['title'], 'airdate':clue['airdate'][:10], 'value':clue['value'], 'category_id':clue['category_id']}
+        content_set.append(dict)
+
+    return render(request, 'trivia/results.html', {'trivia':content_set, 'title':cat})
+
+def difficultytrivia(request, id='100'):
+    req = "http://jservice.io/api/clues?value="+id
+    diff = int(id)
+    response = requests.get(req)
+    trivia_set = response.json()
+    content = []
+    for trivia in trivia_set:
+        dict = {'id': trivia['id'], 'question': trivia['question'], 'answer': trivia['answer'], 'airdate': trivia['airdate'][:10], 'value': trivia['value'],
+                'category_id' : trivia['category']['id'], 'category': trivia['category']['title']}
         content.append(dict)
+    if diff > 0 and diff <= 300:
+        id = "Easy"
+    if diff >= 300 and diff < 700:
+        id = "Intermediate"
+    if diff >= 700:
+        id = "Hard"
+    return render(request, 'trivia/results.html', {'trivia':content, 'title':diff})
 
-    return render(request, {'trivia':content, 'title':cat, 'success':success, 'titleBar':cat})
-
-def airdatetrivia(request):
-    return render(request)
-
-def difficultytrivia(request):
-    return render(request)
-
-def about(request):
-    return render(request, 'trivia/about.html')
+def airdatetrivia(request, id='2012-01-01'):
+    req = "http://jservice.io/api/clues?min_date"+id+"T12:00:00.000Z&max_date="+id+"T12:00:00.000Z"
+    response = requests.get(req)
+    trivia_set = response.json()
+    content = []
+    for trivia in trivia_set:
+        dict = {'id': trivia['id'], 'question': trivia['question'], 'answer': trivia['answer'], 'airdate': trivia['airdate'][:10], 'value': trivia['value'],
+                'category_id' : trivia['category']['id'], 'category': trivia['category']['title']}
+        content.append(dict)
+    return render(request, 'trivia/results.html', {'trivia':content, 'title':id})

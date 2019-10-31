@@ -1,7 +1,118 @@
-{% extends "trivia/base.html" %}
+<head>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-{% block content %}
 
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
 
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <script>
+    function showAnswer(param) {
+      console.log(param)
+      var x = document.getElementById(param);
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
+</head> 
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{% url 'trivia-home' %}">Jeopardy</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="{% url 'trivia-categories' %}">Categories</a>
+          <a class="nav-item nav-link" href="https://github.com/JShimonov/Capital-One-App">About</a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-{% endblock content %}
+  <!-- main template code -->
+  <div class="album py-5 bg-dark">
+    <div class="container">
+      <div class="row">
+
+        {% for triv in trivia %}
+          <div class="col-md-4 py-4">
+            <div class="card mb-3 shadow-sm" style="border-radius:20px; text-align:center;">
+              <div class="card-body">
+
+                <div>
+                  <strong>Trivia ID</strong>
+                  <br>
+                  <a>{{ triv.id }}</a>
+                </div>
+
+                <br>
+
+                <!-- Show the Category of the question -->
+                <div>
+                  <strong>Category</strong>
+                  <br>
+                  <a href="/listcategory/{{ triv.category_id }}">{{ triv.category }}</a>
+                </div>
+
+                <br>
+
+                <!-- Show the Difficulty of the question -->
+                <div>
+                  <strong>Difficulty</strong>
+                  <br>
+                  <a href="/difficulty/{{ triv.value }}">{{ triv.value }}</a>
+                </div>
+
+                <br>
+
+                <!-- Show the Airdate of the question -->
+                <div>
+                  <strong>Airdate</strong>
+                  <br>
+                  <a href="/airdate/{{ triv.airdate }}">{{ triv.airdate }}</a>
+                </div>
+
+                <br>
+
+                <!-- Show the button to ShowAnswer -->
+                <!-- Show the Answer to the question -->
+                <div>
+                  <strong>Question</strong>
+                  <br>
+                  <a>{{ triv.question }}</a>
+                  <br>
+                  <button type="button" onclick="showAnswer({{forloop.counter}})" style="outline:auto; outline-width:1px;">Show Answer</button>
+                  <br>
+                  <div id="{{forloop.counter}}" style="display:none">Answer: {{ triv.answer }}</div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+  <footer class="text-muted">
+    <div class="container text-center">
+      <p>© Joseph Shimonov {% now "Y" %}</p>
+      </div>
+  </footer>
