@@ -11,7 +11,7 @@ def home(request):
         from_date = request.POST["airdate-start"]
         to_date = request.POST["airdate-end"]
         diff = request.POST["Difficulty"]
-        return results_trivia(request, category, diff, (from_date, to_date))
+        return results_trivia(request, category, diff, from_date, to_date)
 
     req = 'http://jservice.io/api/random?count=15'
     response = requests.get(req)
@@ -51,56 +51,54 @@ def listcategory(request, id='11510'):
         content.append(dict)
     return render(request, 'trivia/listcategory.html', {'clues':content})
 
-def results_trivia(request, cat='', diff='', date=''):
+def results_trivia(request, cat, diff, from_date, to_date):
     content_set = []
     clues_set = []
 
     offset = 0
-    categories = []
+
     while True:
         req = "http://jservice.io/api/categories?count=100&offset=" + str(offset)
         response = requests.get(req)
         category_set = response.json()
-        # base: overflow
-        if offset >= 1000:
+
+        if offset >= 10000: # prevent crashing with blank category
             break
-        # now find the correct set of Categories
+
+        # Find right category
         for category in category_set:
-            categories.append(category['title'])
-            # check if category exists
             if category['title'] == None:
                 break
 
-            elif (cat == None) or (cat != "" and cat in category['title']):
+            # Filter By Category
+            # Add all the questions/clues from that category and append to larger list
+            elif (cat == None) or (cat != "" and cat in category['title']):  # if there is no query or if there is a query
                 clue_req = "http://jservice.io/api/clues?category=" + str(category['id'])
                 clue_response = requests.get(clue_req)
                 clue_question_set = clue_response.json()
 
-                for clue in clue_question_set:
-                    value = clue['value'] # this determines the difficulty of the question
+                for clue in clue_question_set: # Loop through all the questions in one category
+                    value = int(clue['value'])
                     airdate = datetime.date(int(clue['airdate'][:4]), int(clue['airdate'][5:7]), int(clue['airdate'][8:10]))
 
                     if value == None:
                         continue
 
-                    # Max difficulty value == 1000
-                    dict = {'easy': 0 < value <= 300, 'intermediate': 300 < value <= 700, 'difficult': 700 < value <= 1000, None:True}
+                    # look thru the difficulty
+                    dict = {'Easy': 0 < value <= 300, 'Intermediate': 300 < value <= 700, 'Difficult': 700 < value <= 1000}
                     difficulty = dict[diff]
 
-                    # filter date here
-                    timeframe = date[0] <= airdate <= date[1]
-
-                    if difficulty and timeframe:
+                    # look thru the time airdate
+                    time_airdate = datetime.date(date[0][:4], date[0][5:7], date[0][8:10]) <= datetime.date(airdate) <= datetime.date(date[1][:4], date[1][5:7], date[1][8:10])
+                    if difficulty and time_airdate:
                         clues_set.append(clue)
 
-        offset += 1000
-
-    f = open("all_categories.txt", "w")
-    f.write(str(categories))
+        offset += 100
 
     for clue in clues_set:
         dict = {'id': clue['id'], 'question':clue['question'], 'answer':clue['answer'], 'category':clue['category']['title'], 'airdate':clue['airdate'][:10], 'value':clue['value'], 'category_id':clue['category_id']}
         content_set.append(dict)
+    print(content_set)
 
     return render(request, 'trivia/results.html', {'trivia':content_set, 'category':cat, 'difficulty':diff, 'date':date})
 
