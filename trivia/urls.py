@@ -8,4 +8,5 @@ urlpatterns = [
     path('airdate/<id>', views.airdatetrivia, name='trivia-airdate'),
     path('difficulty/<id>', views.difficultytrivia, name='trivia-difficulty'),
     path('results/', views.results_trivia, name='trivia-results'),
+    path('test/', views.test, name='trivia-test'),
 ]

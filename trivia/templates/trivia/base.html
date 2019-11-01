@@ -52,19 +52,20 @@
   <!-- This is where the search features is rendered -->
   <main role="main" style="background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%)">
 
-    <section class="jumbotron text-center" style="background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); margin-bottom: 0px; padding-bottom: 48px; padding-top: 48px;">
+    <section class="jumbotron text-center" style="background-image: linear-gradient(141deg, #9fb8ad 10%, #1fc8db 61%, #2cb5e8 85%); margin-bottom: 0px; padding-bottom: 48px; padding-top: 48px;">
       <div class="container" style="text-align:center">
         <h1 class="jumbotron-heading">Welcome to Jeopardy</h1>
         <p class="lead text-muted">Find all the trivia questions that you are looking for all in one spot</p>
 
         <!-- Search function(s) put here -->
-        <form method="post">
+        <form method="POST">
           {% csrf_token %}
           <input type="text" placeholder="Search Categories" style="width:100%; max-width:600px;">
           <br>
           <br>
           <label for="start">Start date:</label>
           <input type="date" id="start" name="airdate-start" value="2000-07-22" min="1965-01-01" max="2012-12-31">
+
           <br>
           <label for="end">End date:</label>
           <input type="date" id="end" name="airdate-end" value="2010-08-22" min="1965-01-07" max="2012-12-31">

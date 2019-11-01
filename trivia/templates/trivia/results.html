@@ -30,7 +30,7 @@
       }
     }
   </script>
-</head> 
+</head>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="{% url 'trivia-home' %}">Jeopardy</a>
@@ -47,7 +47,11 @@
   </header>
 
   <!-- main template code -->
-  <div class="album py-5 bg-dark">
+  <div class="album py-5 bg-dark" style>
+    <a style="color:blue;"> {{ category }} </a>
+    <a style="color:blue;"> {{ difficulty }} </a>
+    <a style="color:blue;"> {{ date }} </a>
+
     <div class="container">
       <div class="row">
 
@@ -98,7 +102,8 @@
                   <br>
                   <a>{{ triv.question }}</a>
                   <br>
-                  <button type="button" onclick="showAnswer({{forloop.counter}})" style="outline:auto; outline-width:1px;">Show Answer</button>
+                  <br>
+                  <button type="button" onclick="showAnswer({{forloop.counter}})" style="border-radius:20px">Show Answer</button>
                   <br>
                   <div id="{{forloop.counter}}" style="display:none">Answer: {{ triv.answer }}</div>
                 </div>

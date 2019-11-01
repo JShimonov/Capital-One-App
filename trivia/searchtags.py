@@ -3,7 +3,7 @@ from django import forms
 class searchform(forms.Form):
     # all the final variables
     YEARS_RANGE = [years for years in range(1965, 2012)]
-    DIFFICULTY = [('easy', 'Easy'), ('intermediate', 'Intermediate'), ('difficult', 'Difficult')]
+    DIFFICULTY = [('easy', 'Easy'), ('intermediate', 'Intermediate'), ('difficult', 'Difficult'), ('none', 'None')]
     YEARS = [i for i in range(1965, 2012)]
 
 
