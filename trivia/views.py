@@ -5,26 +5,13 @@ import datetime
 import random
 import requests
 
-print("hi")
-
-# this method is what
 def home(request):
-    print("hey")
     if request.method == 'POST':
-        print("hello")
-        form = searchform(request.POST)
-        print("hi")
-        if form.is_valid():
-            data = form.cleaned_data
-            # inputting values from the data
-            category = data['category'] if data['category']!='' else None
-            diff = data['difficulty'] if data['difficulty']!= "" else None
-            from_date = data['from_date'] if data['from_date'] != None else datetime.date(1966, 1, 1)
-            to_date = data['to_date'] if data['to_date'] != None else datetime.date(2011, 12, 12)
-            print(category)
-            print("hello 1")
-            
-            return results_trivia(request, category, diff, (from_date, to_date))
+        category = request.POST["Category"]
+        from_date = request.POST["airdate-start"]
+        to_date = request.POST["airdate-end"]
+        diff = request.POST["Difficulty"]
+        return results_trivia(request, category, diff, (from_date, to_date))
 
     req = 'http://jservice.io/api/random?count=15'
     response = requests.get(req)
@@ -38,16 +25,11 @@ def home(request):
 
 def categories(request):
     if request.method == 'POST':
-        form = searchform(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            # inputting values from the data
-            category = data['category'] if data['category']!='' else None
-            diff = data['difficulty'] if data['difficulty']!= "" else None
-            from_date = data['from_date'] if data['from_date'] != None else datetime.date(1966, 1, 1)
-            to_date = data['to_date'] if data['to_date'] != None else datetime.date(2011, 12, 12)
-
-            return results_trivia(request, category, diff, (from_date, to_date))
+        category = request.POST["Category"]
+        from_date = request.POST["airdate-start"]
+        to_date = request.POST["airdate-end"]
+        diff = request.POST["Difficulty"]
+        return results_trivia(request, category, diff, (from_date, to_date))
 
     req = 'http://jservice.io/api/categories?count=99'
     response = requests.get(req)
@@ -69,7 +51,7 @@ def listcategory(request, id='11510'):
         content.append(dict)
     return render(request, 'trivia/listcategory.html', {'clues':content})
 
-def results_trivia(request, cat, diff, date):
+def results_trivia(request, cat='', diff='', date=''):
     content_set = []
     clues_set = []
 
