@@ -78,19 +78,19 @@ def results_trivia(request, cat, diff, from_date, to_date):
                 clue_question_set = clue_response.json()
 
                 for clue in clue_question_set: # Loop through all the questions in one category
-                    value = int(clue['value'])
-                    airdate = datetime.date(int(clue['airdate'][:4]), int(clue['airdate'][5:7]), int(clue['airdate'][8:10]))
-
-                    if value == None:
+                    if clue['value'] == None:
                         continue
+                    else:
+                        value = int(clue['value'])
+                    airdate = datetime.date(int(clue['airdate'][:4]), int(clue['airdate'][5:7]), int(clue['airdate'][8:10]))
 
                     # look thru the difficulty
                     dict = {'Easy': 0 < value <= 300, 'Intermediate': 300 < value <= 700, 'Difficult': 700 < value <= 1000}
                     difficulty = dict[diff]
 
                     # look thru the time airdate
-                    #time_airdate = datetime.date(date[0][:4], date[0][5:7], date[0][8:10]) <= datetime.date(airdate) <= datetime.date(date[1][:4], date[1][5:7], date[1][8:10])
-                    if difficulty:
+                    time_airdate = datetime.date(int(from_date[:4]), int(from_date[5:7]), int(from_date[8:10])) <= airdate <= datetime.date(int(to_date[:4]), int(to_date[5:7]), int(to_date[8:10]))
+                    if difficulty and time_airdate:
                         clues_set.append(clue)
 
         offset += 100
@@ -100,7 +100,7 @@ def results_trivia(request, cat, diff, from_date, to_date):
         content_set.append(dict)
     print(content_set)
 
-    return render(request, 'trivia/results.html', {'trivia':content_set, 'category':cat, 'difficulty':diff, 'date':date})
+    return render(request, 'trivia/results.html', {'trivia':content_set})
 
 def difficultytrivia(request, id='100'):
     req = "http://jservice.io/api/clues?value="+id
