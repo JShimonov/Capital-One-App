@@ -25,7 +25,7 @@ SECRET_KEY = "k-@9alqwsp_3t@c^w@$wj0&gcx**!ec_!_0)3$5mrlrtc7^3ai"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['jshimonovcapapp.herokuapp.com']
+ALLOWED_HOSTS = ['jshimonovcapapp.herokuapp.com', 'http://127.0.0.1:8000/']
 
 
 # Application definition
