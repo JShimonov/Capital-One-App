@@ -29,21 +29,21 @@ https://jshimonovcapapp.herokuapp.com
 # Features Included
 
 The required criteria for the website have been completed:
-[x] Search function that displays in an intuitive, responsive, mobile friendly, easy to navigate interface
-[x] Ability to refine search results (Date, Category, Difficulty)
+- [x] Search function that displays in an intuitive, responsive, mobile friendly, easy to navigate interface
+- [x] Ability to refine search results (Date, Category, Difficulty)
 
 Optional features that have been implemented:
-[x] The home page features the search for categories, difficulty, and airdate forms, as well as 15 random questions from 'api/random'
-[x] The categories page lists the first 99 categories from '/api/categories'
-[x] When the user views the questions they are also able to press on the Category, Airdate, and also the Difficulty to find other questions that match that description
-[x] Added gradient background in the wherever there is a form for the user to input their categories
-[x] Added feature where the user has to press a button to show the answer to the question that they are viewing
+- [x] The home page features the search for categories, difficulty, and airdate forms, as well as 15 random questions from 'api/random'
+- [x] The categories page lists the first 99 categories from '/api/categories'
+- [x] When the user views the questions they are also able to press on the Category, Airdate, and also the Difficulty to find other questions that match that description
+- [x] Added gradient background in the wherever there is a form for the user to input their categories
+- [x] Added feature where the user has to press a button to show the answer to the question that they are viewing
 
 Future features to be implemented:
-[ ] Create an auto-complete for the search bar so that when the user types, they can see all the possible choices based on what they are typing.
-[ ] Create a game that functions like a speed round, where you test the user's knowledge of trivia in a timed setting
-[ ] Make the search algorithm faster
-[ ] Add more CSS and designs to the website
+- [ ] Create an auto-complete for the search bar so that when the user types, they can see all the possible choices based on what they are typing.
+- [ ] Create a game that functions like a speed round, where you test the user's knowledge of trivia in a timed setting
+- [ ] Make the search algorithm faster
+- [ ] Add more CSS and designs to the website
 
 # How the Search Algorithm Works
 1. Posts all the information that the user inputs to search fields (search bar,  start date, end date, and difficulty)
