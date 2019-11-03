@@ -90,7 +90,7 @@ def results_trivia(request, cat, diff, from_date, to_date):
 
                     # look thru the time airdate
                     time_airdate = datetime.date(int(from_date[:4]), int(from_date[5:7]), int(from_date[8:10])) <= airdate <= datetime.date(int(to_date[:4]), int(to_date[5:7]), int(to_date[8:10]))
-                    if difficulty and time_airdate:
+                    if difficulty:
                         clues_set.append(clue)
 
         offset += 100
