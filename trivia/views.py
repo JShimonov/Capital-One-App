@@ -29,7 +29,7 @@ def categories(request):
         from_date = request.POST["airdate-start"]
         to_date = request.POST["airdate-end"]
         diff = request.POST["Difficulty"]
-        return results_trivia(request, category, diff, (from_date, to_date))
+        return results_trivia(request, category, diff, from_date, to_date)
 
     req = 'http://jservice.io/api/categories?count=99'
     response = requests.get(req)
