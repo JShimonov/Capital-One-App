@@ -64,6 +64,11 @@ Future features to be implemented:
 
 # Walkthroughs
 
+## Home Page
 <img src = 'https://github.com/JShimonov/Capital-One-App/blob/master/CapitalOneAppWalkThru1.gif' />
 
+## Categories Page
 <img src = 'https://github.com/JShimonov/Capital-One-App/blob/master/CapitalOneAppWalkThru2.gif' />
+
+## Results Page
+<image src = 'https://github.com/JShimonov/Capital-One-App/blob/master/CapitalOneAppWalkThru3.gif' />
